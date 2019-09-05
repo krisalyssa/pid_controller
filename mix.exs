@@ -22,11 +22,13 @@ defmodule PidController.MixProject do
 
   defp aliases do
     [
+      credo: ["credo --strict"],
     ]
   end
 
   defp deps do
     [
+      {:credo, "~> 1.0"},
     ]
   end
 
