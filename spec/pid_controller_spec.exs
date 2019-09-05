@@ -1,7 +1,7 @@
-defmodule PidControllerTest do
+defmodule PidController.Spec do
   @moduledoc false
 
-  use ExUnit.Case
+  use ESpec
 
   doctest PidController
 
