@@ -4,14 +4,15 @@
 version: 2
 jobs:
   build:
+    branches:
+      only:
+        - master
+        - develop
     docker:
       - image: circleci/elixir:1.9
-
     working_directory: ~/repo
     steps:
       - checkout
-
-      # specify any bash command here prefixed with `run: `
       - run: mix local.hex --force
       - run: mix local.rebar --force
       - run: mix deps.get
