@@ -34,6 +34,7 @@ defmodule PidController.MixProject do
   defp deps do
     [
       {:credo, "~> 1.0"},
+      {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false},
       {:espec, "~> 1.6", only: :test},
     ]
   end
