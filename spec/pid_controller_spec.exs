@@ -69,7 +69,7 @@ defmodule PidController.Spec do
             Enum.reduce(1..10, {0.0, [], shared.controller}, fn _,
                                                                 {input_value, intermediate_values,
                                                                  state} ->
-              {:ok, output_value, new_state} = PidController.compute(input_value, state)
+              {:ok, output_value, new_state} = PidController.output(input_value, state)
               next_input_value = input_value + output_value
               {next_input_value, [intermediate_values | [next_input_value]], new_state}
             end)
@@ -100,7 +100,7 @@ defmodule PidController.Spec do
             Enum.reduce(1..10, {0.0, [], shared.controller}, fn _,
                                                                 {input_value, intermediate_values,
                                                                  state} ->
-              {:ok, output_value, new_state} = PidController.compute(input_value, state)
+              {:ok, output_value, new_state} = PidController.output(input_value, state)
               next_input_value = input_value + output_value
               {next_input_value, [intermediate_values | [next_input_value]], new_state}
             end)
@@ -132,7 +132,7 @@ defmodule PidController.Spec do
             Enum.reduce(1..10, {0.0, [], shared.controller}, fn _,
                                                                 {input_value, intermediate_values,
                                                                  state} ->
-              {:ok, output_value, new_state} = PidController.compute(input_value, state)
+              {:ok, output_value, new_state} = PidController.output(input_value, state)
               next_input_value = input_value - output_value
               {next_input_value, [intermediate_values | [next_input_value]], new_state}
             end)
@@ -163,7 +163,7 @@ defmodule PidController.Spec do
             Enum.reduce(1..10, {0.0, [], shared.controller}, fn _,
                                                                 {input_value, intermediate_values,
                                                                  state} ->
-              {:ok, output_value, new_state} = PidController.compute(input_value, state)
+              {:ok, output_value, new_state} = PidController.output(input_value, state)
               next_input_value = input_value - output_value
               {next_input_value, [intermediate_values | [next_input_value]], new_state}
             end)

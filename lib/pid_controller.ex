@@ -70,7 +70,7 @@ defmodule PidController do
   def action(state), do: state.action
 
   @doc ~S"""
-  Returns the range to which the output will be limited, in the form
+  Returns the range to which the control value will be limited, in the form
   `{min, max}`. If either value is `nil`, the range is unbounded at that end.
   """
   @spec output_limits(state()) :: {float() | nil, float() | nil}
@@ -114,8 +114,8 @@ defmodule PidController do
   def set_action(state, _), do: state
 
   @doc ~S"""
-  Sets the range to which the output will be limited, in the form
-  `{min, max}`. If either value is `nil`, the output will not be limited
+  Sets the range to which the control value will be limited, in the form
+  `{min, max}`. If either value is `nil`, the control value will not be limited
   in that direction.
   """
   @spec set_output_limits(state(), {float() | nil, float() | nil}) :: state()
@@ -137,14 +137,14 @@ defmodule PidController do
   def set_output_limits(state, _), do: state
 
   @doc ~S"""
-  Performs the PID calculation.
+  Calculates the control value from the current process value.
 
-  Returns {:ok, new_output, state}.
+  Returns {:ok, output, state}.
   """
-  @spec compute(float(), state()) :: {:ok, float(), state()}
-  def compute(input, state) do
-    {output, state} = compute_output(input, state)
-    {:ok, output, state}
+  @spec output(float(), state()) :: {:ok, float(), state()}
+  def output(input, state) do
+    {cv, state} = calculate_output(input, state)
+    {:ok, cv, state}
   end
 
   defp action_multiplier(:direct), do: 1.0
@@ -156,7 +156,7 @@ defmodule PidController do
   defp clamp(value, %{output_limits: {min, _}}) when value < min, do: min
   defp clamp(value, %{output_limits: {_, max}}) when value > max, do: max
 
-  defp compute_output(input, state) do
+  defp calculate_output(input, state) do
     error = state.setpoint - input
 
     p_term = state.kp * action_multiplier(state.action) * error
