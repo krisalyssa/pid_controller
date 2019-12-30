@@ -35,10 +35,48 @@ and derivative terms are also functions of time. The first iteration of
 and consistent intervals, even though in practice this is unlikely. A future version
 will take into account the elapsed time between calls to `output/2`.
 
+## AN INTRODUCTION
+
+### What is “control theory”?
+
+Simply put, control theory is the math used to control a system whose state
+is a function of time. More precisely, we’re interested in controlling the system
+such that it is _stable_ (none of the values which compose the state grow to
+infinity) and that when disturbed returns to a steady state without excessive
+oscillation or damping.
+
+Control theory covers a broad range of possible systems, so we’ll limit ourselves
+to closed-loop (or _feedback_) control of a single state variable of a linear system.
+
+### You use big words. How are you with metaphors?
+
+Okay. Every closed-loop controller is made up of several parts.
+
+  * The **system** being controlled
+  * An **input** to the system, to change its state
+  * An **output** from the system, to be measured
+  * A reference value (the **set point**) against which the output is compared
+  * The **error signal** (the difference between the measured output and the set point)
+  * The **controller**, which converts the error signal to the output fed back into the system
+
+For the **system**, think of your residence&mdash;your house, apartment,
+parents’ basement, yurt, whatever. There are lots of **state variables** which
+describe the time-dependent state of the system (temperature, humidity,
+air pressure, to name just three). The controller will control only one state variable;
+We'll call this one of interest the **process variable**.
+
+We want to hold the temperature constant, so temperature is our **process variable**.
+For the sake of the metaphor, assume that it’s winter where you are, so outside
+of your residence is colder than the inside, so the temperature will drop over
+time.
+
+Some sensor, somewhere in your residence, measures the _current_ temperature. It is
+compared to the _desired_ temperature (the **set point**); the difference between
+the two is the **error value**.
+
 ## INSTALLATION
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `pid_controller` to your list of dependencies in `mix.exs`:
+Add `pid_controller` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -48,6 +86,39 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/pid_controller](https://hexdocs.pm/pid_controller).
+Don't forget to run `mix deps.get` afterwards.
+
+## USAGE
+
+Documentation can be found at https://hexdocs.pm/pid_controller.
+
+## CONTRIBUTING
+
+  1. Clone the repository.
+  2. Install dependencies with `mix deps.get`.
+
+Pull requests are welcome. Pull requests with specs covering the changes
+are especially welcome. Pull requests with specs, which have been run through
+`mix format`, and pass `mix credo` are extra-especially welcome. :smile:
+
+Unit tests were written with [ESpec](https://github.com/antonmi/espec).
+
+## TO DO
+
+See the [open issues on Github](https://github.com/CraigCottingham/pid_controller/issues).
+
+## COPYRIGHT
+
+Copyright (c) 2019 Craig S. Cottingham, except where stated otherwise.
+
+## LICENSE
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions
+and limitations under the License.

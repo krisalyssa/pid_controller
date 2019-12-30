@@ -32,23 +32,20 @@ defmodule PidController.MixProject do
 
   defp aliases do
     [
-      credo: ["credo --strict"],
-      test: ["espec"]
+      test: ["format", "credo --strict", "dialyzer", "espec"]
     ]
   end
 
   defp deps do
     [
-      {:credo, "~> 1.0"},
-      {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false},
-      {:espec, "~> 1.6", only: :test},
+      {:credo, "~> 1.1", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0.0-rc.7", only: [:dev, :test], runtime: false},
+      {:espec, "~> 1.7", only: :test},
       {:ex_doc, "~> 0.19", only: :dev, runtime: false}
     ]
   end
 
-  defp description do
-    "A PID (proportional/integral/derivative) controller in Elixir."
-  end
+  defp description, do: "A PID (proportional/integral/derivative) controller in Elixir."
 
   defp elixirc_paths(:test), do: ["lib", "spec/support"]
   defp elixirc_paths(_), do: ["lib"]
