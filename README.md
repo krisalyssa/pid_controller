@@ -81,7 +81,7 @@ Add `pid_controller` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:pid_controller, "~> 0.1.1"}
+    {:pid_controller, "~> 0.1.2"}
   ]
 end
 ```

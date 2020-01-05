@@ -6,7 +6,7 @@ defmodule PidController.MixProject do
   def project do
     [
       app: :pid_controller,
-      version: "0.1.1",
+      version: "0.1.2",
       name: "PidController",
       description: description(),
       source_url: "http://github.com/CraigCottingham/pid_controller",
