@@ -32,6 +32,7 @@ defmodule PidController.MixProject do
 
   defp aliases do
     [
+      credo: ["credo --strict"],
       test: ["format", "credo --strict", "dialyzer", "espec"]
     ]
   end
@@ -40,8 +41,8 @@ defmodule PidController.MixProject do
     [
       {:credo, "~> 1.1", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev, :test], runtime: false},
-      {:espec, "~> 1.7", only: :test},
-      {:ex_doc, "~> 0.19", only: :dev, runtime: false}
+      {:espec, "~> 1.8", only: :test},
+      {:ex_doc, "~> 0.21.2", only: :dev, runtime: false}
     ]
   end
 
