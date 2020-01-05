@@ -1,7 +1,7 @@
 # pid_controller
 
 > A PID (proportional/integral/derivative) controller in Elixir.
-> "PID" in this context is not to be confused with process ID.
+> “PID” in this context is not to be confused with process ID.
 
 [![CircleCI](https://img.shields.io/circleci/project/github/CraigCottingham/pid_controller.svg?style=flat)](https://circleci.com/gh/CraigCottingham/pid_controller)
 [![Github open issues](https://img.shields.io/github/issues/CraigCottingham/pid_controller.svg?style=flat)](https://github.com/CraigCottingham/pid_controller/issues)
@@ -63,7 +63,7 @@ For the **system**, think of your residence&mdash;your house, apartment,
 parents’ basement, yurt, whatever. There are lots of **state variables** which
 describe the time-dependent state of the system (temperature, humidity,
 air pressure, to name just three). The controller will control only one state variable;
-We'll call this one of interest the **process variable**.
+We’ll call this one of interest the **process variable**.
 
 We want to hold the temperature constant, so temperature is our **process variable**.
 For the sake of the metaphor, assume that it’s winter where you are, so outside
@@ -81,12 +81,12 @@ Add `pid_controller` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:pid_controller, "~> 0.1.0"}
+    {:pid_controller, "~> 0.1.1"}
   ]
 end
 ```
 
-Don't forget to run `mix deps.get` afterwards.
+Don’t forget to run `mix deps.get` afterwards.
 
 ## USAGE
 
@@ -109,16 +109,16 @@ See the [open issues on Github](https://github.com/CraigCottingham/pid_controlle
 
 ## COPYRIGHT
 
-Copyright (c) 2019 Craig S. Cottingham, except where stated otherwise.
+Copyright (c) 2019-2020 Craig S. Cottingham, except where stated otherwise.
 
 ## LICENSE
 
-Licensed under the Apache License, Version 2.0 (the "License");
+Licensed under the Apache License, Version 2.0 (the “License”);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an "AS IS" BASIS,
+software distributed under the License is distributed on an “AS IS” BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions
 and limitations under the License.
