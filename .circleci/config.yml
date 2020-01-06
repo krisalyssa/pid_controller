@@ -94,7 +94,7 @@ jobs:
       - checkout
       - restore_cache:
           key: deps-cache-{{ checksum "mix.lock" }}
-      - run: mix test
+      - run: mix espec
 
   # release:
   #   branches:
