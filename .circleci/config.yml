@@ -10,8 +10,8 @@ jobs:
         - develop
     docker:
       - image: circleci/elixir:1.9
-          environment:
-            MIX_ENV: test
+    environment:
+      MIX_ENV: test
     working_directory: ~/repo
     steps:
       - checkout
@@ -45,8 +45,8 @@ jobs:
         - develop
     docker:
       - image: circleci/elixir:1.9
-          environment:
-            MIX_ENV: test
+    environment:
+      MIX_ENV: test
     working_directory: ~/repo
     steps:
       - checkout
@@ -59,8 +59,8 @@ jobs:
         - develop
     docker:
       - image: circleci/elixir:1.9
-          environment:
-            MIX_ENV: test
+    environment:
+      MIX_ENV: test
     working_directory: ~/repo
     steps:
       - checkout
@@ -75,8 +75,8 @@ jobs:
         - develop
     docker:
       - image: circleci/elixir:1.9
-          environment:
-            MIX_ENV: test
+    environment:
+      MIX_ENV: test
     working_directory: ~/repo
     steps:
       - checkout
@@ -92,8 +92,8 @@ jobs:
         - develop
     docker:
       - image: circleci/elixir:1.9
-          environment:
-            MIX_ENV: test
+    environment:
+      MIX_ENV: test
     working_directory: ~/repo
     steps:
       - checkout
@@ -111,8 +111,8 @@ jobs:
         - develop
     docker:
       - image: circleci/elixir:1.9
-          environment:
-            MIX_ENV: test
+    environment:
+      MIX_ENV: test
     working_directory: ~/repo
     steps:
       - checkout
