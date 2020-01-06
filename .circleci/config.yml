@@ -4,10 +4,6 @@
 version: 2
 jobs:
   build:
-    branches:
-      only:
-        - master
-        - develop
     docker:
       - image: circleci/elixir:1.9
     environment:
@@ -39,10 +35,6 @@ jobs:
             - _build
 
   check_format:
-    branches:
-      only:
-        - master
-        - develop
     docker:
       - image: circleci/elixir:1.9
     environment:
@@ -53,10 +45,6 @@ jobs:
       - run: mix format --check-formatted
 
   credo:
-    branches:
-      only:
-        - master
-        - develop
     docker:
       - image: circleci/elixir:1.9
     environment:
@@ -69,10 +57,6 @@ jobs:
       - run: mix credo
 
   dialyzer:
-    branches:
-      only:
-        - master
-        - develop
     docker:
       - image: circleci/elixir:1.9
     environment:
@@ -86,10 +70,6 @@ jobs:
       - run: mix dialyzer --halt-exit-status
 
   documentation:
-    branches:
-      only:
-        - master
-        - develop
     docker:
       - image: circleci/elixir:1.9
     environment:
@@ -105,10 +85,6 @@ jobs:
           destination: documentation
 
   test:
-    branches:
-      only:
-        - master
-        - develop
     docker:
       - image: circleci/elixir:1.9
     environment:
@@ -135,21 +111,46 @@ workflows:
   build_and_test:
     jobs:
       - build
+          filters:
+            branches:
+              only:
+                - master
+                - develop
       - check_format:
           requires:
             - build
       - credo:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - master
+                - develop
       - dialyzer:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - master
+                - develop
       - documentation:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - master
+                - develop
       - test:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - master
+                - develop
 
       # - release:
       #     requires:
