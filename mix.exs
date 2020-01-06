@@ -6,7 +6,7 @@ defmodule PidController.MixProject do
   def project do
     [
       app: :pid_controller,
-      version: "0.1.2",
+      version: "0.1.3",
       name: "PidController",
       description: description(),
       source_url: "http://github.com/CraigCottingham/pid_controller",
@@ -42,7 +42,7 @@ defmodule PidController.MixProject do
       {:credo, "~> 1.1", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev, :test], runtime: false},
       {:espec, "~> 1.8", only: :test},
-      {:ex_doc, "~> 0.21.2", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.21.2", only: [:dev, :test], runtime: false}
     ]
   end
 
