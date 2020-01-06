@@ -10,11 +10,150 @@ jobs:
         - develop
     docker:
       - image: circleci/elixir:1.9
+          environment:
+            MIX_ENV: test
     working_directory: ~/repo
     steps:
       - checkout
       - run: mix local.hex --force
       - run: mix local.rebar --force
-      - run: mix deps.get
+      - restore_cache:
+          key: deps-cache-{{ checksum "mix.lock" }}
+      - run: mix do deps.get, deps.compile
+      - save_cache:
+          key: deps-cache-{{ checksum "mix.lock" }}
+          paths:
+            - deps
+            - ~/.mix
+            - _build
+      - run: mix compile
+      - run: echo "$OTP_VERSION $ELIXIR_VERSION" > .version_file
+      - restore_cache:
+          key: plt-cache-{{ checksum ".version_file" }}-{{ checksum "mix.lock" }}
+      - run: mix dialyzer --plt
+      - save_cache:
+          key: plt-cache-{{ checksum ".version_file" }}-{{ checksum "mix.lock" }}
+          paths:
+            - deps
+            - ~/.mix
+            - _build
+
+  check_format:
+    branches:
+      only:
+        - master
+        - develop
+    docker:
+      - image: circleci/elixir:1.9
+          environment:
+            MIX_ENV: test
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: mix format --check-formatted
+
+  credo:
+    branches:
+      only:
+        - master
+        - develop
+    docker:
+      - image: circleci/elixir:1.9
+          environment:
+            MIX_ENV: test
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps-cache-{{ checksum "mix.lock" }}
       - run: mix credo
+
+  dialyzer:
+    branches:
+      only:
+        - master
+        - develop
+    docker:
+      - image: circleci/elixir:1.9
+          environment:
+            MIX_ENV: test
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: echo "$OTP_VERSION $ELIXIR_VERSION" > .version_file
+      - restore_cache:
+          key: plt-cache-{{ checksum ".version_file" }}-{{ checksum "mix.lock" }}
+      - run: mix dialyzer --halt-exit-status
+
+  documentation:
+    branches:
+      only:
+        - master
+        - develop
+    docker:
+      - image: circleci/elixir:1.9
+          environment:
+            MIX_ENV: test
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps-cache-{{ checksum "mix.lock" }}
+      - run: mix docs
+      - store_artifacts:
+          path: doc
+          destination: documentation
+
+  test:
+    branches:
+      only:
+        - master
+        - develop
+    docker:
+      - image: circleci/elixir:1.9
+          environment:
+            MIX_ENV: test
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps-cache-{{ checksum "mix.lock" }}
       - run: mix test
+
+  # release:
+  #   branches:
+  #     only:
+  #       - master
+  #   docker:
+  #     - image: circleci/elixir:1.9
+  #   working_directory: ~/repo
+  #   steps:
+  #     -
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - check_format:
+          requires:
+            - build
+      - credo:
+          requires:
+            - build
+      - dialyzer:
+          requires:
+            - build
+      - documentation:
+          requires:
+            - build
+      - test:
+          requires:
+            - build
+
+      # - release:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only: master
