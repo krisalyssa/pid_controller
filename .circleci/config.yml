@@ -113,49 +113,37 @@ workflows:
       - build:
           filters:
             branches:
-              only:
-                - master
-                - develop
+              only: /^(master|develop|dependabot\/.*)$/
       - check_format:
           requires:
             - build
           filters:
             branches:
-              only:
-                - master
-                - develop
+              only: /^(master|develop|dependabot\/.*)$/
       - credo:
           requires:
             - build
           filters:
             branches:
-              only:
-                - master
-                - develop
+              only: /^(master|develop|dependabot\/.*)$/
       - dialyzer:
           requires:
             - build
           filters:
             branches:
-              only:
-                - master
-                - develop
+              only: /^(master|develop|dependabot\/.*)$/
       - documentation:
           requires:
             - build
           filters:
             branches:
-              only:
-                - master
-                - develop
+              only: /^(master|develop|dependabot\/.*)$/
       - test:
           requires:
             - build
           filters:
             branches:
-              only:
-                - master
-                - develop
+              only: /^(master|develop|dependabot\/.*)$/
 
       # - release:
       #     requires:
