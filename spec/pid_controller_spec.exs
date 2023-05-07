@@ -51,6 +51,60 @@ defmodule PidController.Spec do
     end
   end
 
+  example_group "utility functions" do
+    context "clamp/2" do
+      it "handles both max and min are nil" do
+        expect(PidController.clamp(-1, %{output_limits: {nil, nil}}))
+        |> to(eq(-1))
+
+        expect(PidController.clamp(0, %{output_limits: {nil, nil}}))
+        |> to(eq(0))
+
+        expect(PidController.clamp(1, %{output_limits: {nil, nil}}))
+        |> to(eq(1))
+      end
+
+      it "handles min is nil" do
+        expect(PidController.clamp(-1, %{output_limits: {nil, 0}}))
+        |> to(eq(-1))
+
+        expect(PidController.clamp(0, %{output_limits: {nil, 0}}))
+        |> to(eq(0))
+
+        expect(PidController.clamp(1, %{output_limits: {nil, 0}}))
+        |> to(eq(0))
+      end
+
+      it "handles max is nil" do
+        expect(PidController.clamp(-1, %{output_limits: {0, nil}}))
+        |> to(eq(0))
+
+        expect(PidController.clamp(0, %{output_limits: {0, nil}}))
+        |> to(eq(0))
+
+        expect(PidController.clamp(1, %{output_limits: {0, nil}}))
+        |> to(eq(1))
+      end
+
+      it "handles both limits are given" do
+        expect(PidController.clamp(-2, %{output_limits: {-1, 1}}))
+        |> to(eq(-1))
+
+        expect(PidController.clamp(-1, %{output_limits: {-1, 1}}))
+        |> to(eq(-1))
+
+        expect(PidController.clamp(0, %{output_limits: {-1, 1}}))
+        |> to(eq(0))
+
+        expect(PidController.clamp(1, %{output_limits: {-1, 1}}))
+        |> to(eq(1))
+
+        expect(PidController.clamp(2, %{output_limits: {-1, 1}}))
+        |> to(eq(1))
+      end
+    end
+  end
+
   example_group "controller response" do
     context "when :direct" do
       context "for P" do
