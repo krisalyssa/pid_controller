@@ -150,11 +150,9 @@ defmodule PidController do
   defp action_multiplier(:direct), do: 1.0
   defp action_multiplier(:reverse), do: -1.0
 
-  defp clamp(value, %{output_limits: {nil, nil}}), do: value
-  defp clamp(value, %{output_limits: {nil, max}}) when value <= max, do: value
-  defp clamp(value, %{output_limits: {min, nil}}) when value >= min, do: value
   defp clamp(value, %{output_limits: {min, _}}) when value < min, do: min
   defp clamp(value, %{output_limits: {_, max}}) when value > max, do: max
+  defp clamp(value, _), do: value
 
   defp calculate_output(input, state) do
     error = state.setpoint - input
