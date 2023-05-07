@@ -9,40 +9,40 @@ jobs:
     strategy:
       matrix:
         include:
-          - elixir-version: 1.9.4-otp-22
-            otp-version: 22.3.4.26
-          - elixir-version: 1.10.4-otp-22
-            otp-version: 22.3.4.26
-          - elixir-version: 1.10.4-otp-23
-            otp-version: 23.3.4.18
-          - elixir-version: 1.11.4-otp-22
-            otp-version: 22.3.4.26
-          - elixir-version: 1.11.4-otp-23
-            otp-version: 23.3.4.18
-          - elixir-version: 1.11.4-otp-24
-            otp-version: 24.3.4.11
-          - elixir-version: 1.12.3-otp-22
-            otp-version: 22.3.4.26
-          - elixir-version: 1.12.3-otp-23
-            otp-version: 23.3.4.18
-          - elixir-version: 1.12.3-otp-24
-            otp-version: 24.3.4.11
-          - elixir-version: 1.13.4-otp-22
-            otp-version: 22.3.4.26
-          - elixir-version: 1.13.4-otp-23
-            otp-version: 23.3.4.18
-          - elixir-version: 1.13.4-otp-24
-            otp-version: 24.3.4.11
-          - elixir-version: 1.13.4-otp-25
-            otp-version: 25.3.2
-          - elixir-version: 1.14.4-otp-23
-            otp-version: 23.3.4.18
-          - elixir-version: 1.14.4-otp-24
-            otp-version: 24.3.4.11
-          - elixir-version: 1.14.4-otp-25
-            otp-version: 25.3.2
+          - elixir-version: "1.9.4-otp-22"
+            otp-version: "22.3.4.26"
+          - elixir-version: "1.10.4-otp-22"
+            otp-version: "22.3.4.26"
+          - elixir-version: "1.10.4-otp-23"
+            otp-version: "23.3.4.18"
+          - elixir-version: "1.11.4-otp-22"
+            otp-version: "22.3.4.26"
+          - elixir-version: "1.11.4-otp-23"
+            otp-version: "23.3.4.18"
+          - elixir-version: "1.11.4-otp-24"
+            otp-version: "24.3.4.11"
+          - elixir-version: "1.12.3-otp-22"
+            otp-version: "22.3.4.26"
+          - elixir-version: "1.12.3-otp-23"
+            otp-version: "23.3.4.18"
+          - elixir-version: "1.12.3-otp-24"
+            otp-version: "24.3.4.11"
+          - elixir-version: "1.13.4-otp-22"
+            otp-version: "22.3.4.26"
+          - elixir-version: "1.13.4-otp-23"
+            otp-version: "23.3.4.18"
+          - elixir-version: "1.13.4-otp-24"
+            otp-version: "24.3.4.11"
+          - elixir-version: "1.13.4-otp-25"
+            otp-version: "25.3.2"
+          - elixir-version: "1.14.4-otp-23"
+            otp-version: "23.3.4.18"
+          - elixir-version: "1.14.4-otp-24"
+            otp-version: "24.3.4.11"
+          - elixir-version: "1.14.4-otp-25"
+            otp-version: "25.3.2"
     steps:
-      - name: check out most recent commit
+      - name: check out code
         uses: actions/checkout@v3
         with:
           ref: ${{ github.ref }}
