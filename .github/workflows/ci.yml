@@ -67,12 +67,35 @@ jobs:
         run: |
           mix compile
 
-      # should be a separate job so it generates a separate check
-      - name: lint code
       # should this be a separate job, so compile errors are separate from test failures?
       - name: run unit tests
         run: |
           mix test
+
+  credo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+
+      # use versions in .tool-versions
+      - name: install elixir and erlang
+        uses: erlef/setup-beam@v1
+        with:
+          version-type: strict
+
+      - name: install hex and rebar3
+        run: |
+          mix local.hex --force
+          mix local.rebar --force
+
+      - name: install dependencies
+        run: |
+          mix deps.get
+
+      - name: run credo
         run: |
           mix credo
 
