@@ -69,6 +69,10 @@ jobs:
 
       # should be a separate job so it generates a separate check
       - name: lint code
+      # should this be a separate job, so compile errors are separate from test failures?
+      - name: run unit tests
+        run: |
+          mix test
         run: |
           mix credo
 
