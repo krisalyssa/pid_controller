@@ -80,10 +80,10 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      # use versions in .tool-versions
       - name: install elixir and erlang
         uses: erlef/setup-beam@v1
         with:
+          version-file: .tool-versions
           version-type: strict
 
       - name: install hex and rebar3
@@ -107,10 +107,10 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      # use versions in .tool-versions
       - name: install elixir and erlang
         uses: erlef/setup-beam@v1
         with:
+          version-file: .tool-versions
           version-type: strict
 
       - name: install hex and rebar3
