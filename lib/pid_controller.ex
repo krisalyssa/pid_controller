@@ -139,7 +139,7 @@ defmodule PidController do
   @doc ~S"""
   Calculates the control value from the current process value.
 
-  Returns `{:ok, output, state}``.
+  Returns `{:ok, output, state}`.
   """
   @spec output(float(), state()) :: {:ok, float(), state()}
   def output(input, state) do
