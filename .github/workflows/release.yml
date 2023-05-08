@@ -1,0 +1,38 @@
+name: release
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: The tag to release.
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.tag }}
+
+      - name: install elixir and erlang
+        uses: erlef/setup-beam@v1
+        with:
+          version-file: .tool-versions
+          version-type: strict
+
+      - name: install hex and rebar3
+        run: |
+          mix local.hex --force
+          mix local.rebar --force
+
+      - name: install dependencies
+        run: |
+          mix deps.get
+
+      - name: compile code
+        run: |
+          mix compile
+
+      - name: publish to hex.pm
+        uses: erlangpack/github-action@v3
+        env:
+          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
