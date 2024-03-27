@@ -8,9 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check out code
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.ref }}
+        uses: actions/checkout@v4
 
       - name: install elixir and erlang
         uses: erlef/setup-beam@v1
@@ -22,6 +20,16 @@ jobs:
         run: |
           mix local.hex --force
           mix local.rebar --force
+
+      - name: restore mix cache, if possible
+        uses: actions/cache@v3
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
 
       - name: install dependencies
         run: |
@@ -70,9 +78,7 @@ jobs:
             otp-version: "24.3.4.11"
     steps:
       - name: check out code
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.ref }}
+        uses: actions/checkout@v4
 
       - name: install elixir and erlang
         uses: erlef/setup-beam@v1
@@ -86,6 +92,16 @@ jobs:
           mix local.hex --force
           mix local.rebar --force
 
+      - name: restore mix cache, if possible
+        uses: actions/cache@v3
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
+  
       - name: install dependencies
         run: |
           mix deps.get
@@ -102,9 +118,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check out code
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.ref }}
+        uses: actions/checkout@v4
 
       - name: install elixir and erlang
         uses: erlef/setup-beam@v1
@@ -117,6 +131,16 @@ jobs:
           mix local.hex --force
           mix local.rebar --force
 
+      - name: restore mix cache, if possible
+        uses: actions/cache@v3
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
+  
       - name: install dependencies
         run: |
           mix deps.get
@@ -129,9 +153,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check out code
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.ref }}
+        uses: actions/checkout@v4
 
       - name: install elixir and erlang
         uses: erlef/setup-beam@v1
@@ -144,6 +166,16 @@ jobs:
           mix local.hex --force
           mix local.rebar --force
 
+      - name: restore mix cache, if possible
+        uses: actions/cache@v3
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
+  
       - name: install dependencies
         run: |
           mix deps.get
@@ -156,9 +188,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check out code
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.ref }}
+        uses: actions/checkout@v4
 
       - name: install elixir and erlang
         uses: erlef/setup-beam@v1
@@ -171,6 +201,16 @@ jobs:
           mix local.hex --force
           mix local.rebar --force
 
+      - name: restore mix cache, if possible
+        uses: actions/cache@v3
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
+  
       - name: install dependencies
         run: |
           mix deps.get
