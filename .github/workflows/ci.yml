@@ -132,7 +132,7 @@ jobs:
 
       - name: run unit tests
         run: |
-          mix test
+          mix ci_test
 
   credo:
     runs-on: ubuntu-latest
