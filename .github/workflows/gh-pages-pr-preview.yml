@@ -1,0 +1,34 @@
+# .github/workflows/gh-pages-pr-preview.yml
+name: deploy GitHub Pages PR preview
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+concurrency: preview-${{ github.ref }}
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: check out code
+        uses: actions/checkout@v4
+        
+      - name: set up GitHub Pages
+        uses: actions/configure-pages@v4
+
+      # don't build on close -- there's a different workflow for that
+      - if: github.event.action != 'closed'
+        name: build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: deploy preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./_site/
