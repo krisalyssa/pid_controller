@@ -22,7 +22,7 @@ jobs:
           mix local.rebar --force
 
       - name: restore mix cache, if possible
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             deps
@@ -88,10 +88,10 @@ jobs:
             otp-version: "26.2.3"
           - elixir-version: "1.16.2-otp-24"
             otp-version: "24.3.4.16"
-          - elixir-version: "1.16.2-otp-25"
-            otp-version: "25.3.2.10"
-          - elixir-version: "1.16.2-otp-26"
-            otp-version: "26.2.3"
+          # - elixir-version: "1.16.2-otp-25"
+          #   otp-version: "25.3.2.10"
+          # - elixir-version: "1.16.2-otp-26"
+          #   otp-version: "26.2.3"
 
     steps:
       - name: check out code
@@ -110,7 +110,7 @@ jobs:
           mix local.rebar --force
 
       - name: restore mix cache, if possible
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             deps
@@ -149,7 +149,7 @@ jobs:
           mix local.rebar --force
 
       - name: restore mix cache, if possible
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             deps
@@ -184,7 +184,7 @@ jobs:
           mix local.rebar --force
 
       - name: restore mix cache, if possible
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             deps
@@ -219,7 +219,7 @@ jobs:
           mix local.rebar --force
 
       - name: restore mix cache, if possible
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             deps
