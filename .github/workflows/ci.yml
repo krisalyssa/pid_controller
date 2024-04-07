@@ -121,7 +121,7 @@ jobs:
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-mix-
-  
+
       - name: install dependencies
         run: |
           mix deps.get
@@ -131,8 +131,10 @@ jobs:
           mix compile
 
       - name: run unit tests
+        env:
+          MIX_ENV: test
         run: |
-          mix ci_test
+          mix test.unit
 
   credo:
     runs-on: ubuntu-latest
@@ -160,7 +162,7 @@ jobs:
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-mix-
-  
+
       - name: install dependencies
         run: |
           mix deps.get
@@ -195,7 +197,7 @@ jobs:
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-mix-
-  
+
       - name: install dependencies
         run: |
           mix deps.get
@@ -230,7 +232,7 @@ jobs:
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-mix-
-  
+
       - name: install dependencies
         run: |
           mix deps.get
