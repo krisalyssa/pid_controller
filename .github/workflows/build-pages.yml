@@ -32,15 +32,6 @@ jobs:
       - name: check out files
         uses: actions/checkout@v4
 
-      - name: set up GitHub Pages configuration
-        uses: actions/configure-pages@v4
-
-      - name: build site
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./docs
-          destination: ./_site
-
       - name: install elixir and erlang
         uses: erlef/setup-beam@v1
         with:
@@ -66,9 +57,18 @@ jobs:
         run: |
           mix deps.get
 
-      - name: compile code
+      - name: generate API documentation
         run: |
           mix docs
+
+      - name: set up GitHub Pages configuration
+        uses: actions/configure-pages@v4
+
+      - name: build site
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./docs
+          destination: ./_site
 
       - name: upload site
         uses: actions/upload-pages-artifact@v3
