@@ -1,7 +1,11 @@
 # Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+name: build GitHub Pages site
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths: "docs/**"
+
   # Runs on pushes targeting the default branch
   #  push:
   #    branches: ["main"]
@@ -22,26 +26,24 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: check out files
         uses: actions/checkout@v4
 
-      - name: Setup Pages
+      - name: set up GitHub Pages configuration
         uses: actions/configure-pages@v4
 
-      - name: Build with Jekyll
+      - name: build site
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./docs
           destination: ./_site
 
-      - name: Upload artifact
+      - name: upload site
         uses: actions/upload-pages-artifact@v3
 
-  # Deployment job
   deploy:
     environment:
       name: github-pages
@@ -49,6 +51,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Deploy to GitHub Pages
+      - name: deploy site
         id: deployment
         uses: actions/deploy-pages@v4
