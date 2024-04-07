@@ -11,6 +11,9 @@ defmodule PidController.MixProject do
       description: description(),
       source_url: "http://github.com/CraigCottingham/pid_controller",
       homepage_url: "http://github.com/CraigCottingham/pid_controller",
+      docs: [
+        output: "docs/hexdocs"
+      ],
       package: package(),
       elixir: "~> 1.9",
       elixirc_options: [warnings_as_errors: true],
@@ -41,8 +44,10 @@ defmodule PidController.MixProject do
   defp deps do
     [
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      # can't update dialyxir to ~> 1.4 because it doesn't work with Elixir < 1.12
       {:dialyxir, "~> 1.3", only: [:dev, :test], runtime: false},
       {:espec, "~> 1.9", only: :test},
+      # can't update ex_doc to ~> 0.31.2 because it doesn't work with Elixir < 1.12
       {:ex_doc, "~> 0.29.4", only: [:dev, :test], runtime: false}
     ]
   end

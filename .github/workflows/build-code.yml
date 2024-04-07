@@ -1,4 +1,4 @@
-name: ci
+name: build code and associated artifacts
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: install elixir and erlang
+        id: versions
         uses: erlef/setup-beam@v1
         with:
           version-file: .tool-versions
@@ -31,9 +32,9 @@ jobs:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-mix-${{ steps.versions.outputs.elixir-version }}-${{ steps.versions.outputs.otp-version }}-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            ${{ runner.os }}-mix-
+            ${{ runner.os }}-${{ steps.versions.outputs.elixir-version }}-${{ steps.versions.outputs.otp-version }}-mix-
 
       - name: install dependencies
         run: |
@@ -119,9 +120,9 @@ jobs:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-mix-${{ matrix.elixir-version }}-${{ matrix.otp-version }}-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            ${{ runner.os }}-mix-
+            ${{ runner.os }}-mix-${{ matrix.elixir-version }}-${{ matrix.otp-version }}-
 
       - name: install dependencies
         run: |
@@ -144,6 +145,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: install elixir and erlang
+        id: versions
         uses: erlef/setup-beam@v1
         with:
           version-file: .tool-versions
@@ -160,9 +162,9 @@ jobs:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-mix-${{ steps.versions.outputs.elixir-version }}-${{ steps.versions.outputs.otp-version }}-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            ${{ runner.os }}-mix-
+            ${{ runner.os }}-${{ steps.versions.outputs.elixir-version }}-${{ steps.versions.outputs.otp-version }}-mix-
 
       - name: install dependencies
         run: |
@@ -179,6 +181,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: install elixir and erlang
+        id: versions
         uses: erlef/setup-beam@v1
         with:
           version-file: .tool-versions
@@ -195,9 +198,9 @@ jobs:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-mix-${{ steps.versions.outputs.elixir-version }}-${{ steps.versions.outputs.otp-version }}-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            ${{ runner.os }}-mix-
+            ${{ runner.os }}-${{ steps.versions.outputs.elixir-version }}-${{ steps.versions.outputs.otp-version }}-mix-
 
       - name: install dependencies
         run: |
@@ -214,6 +217,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: install elixir and erlang
+        id: versions
         uses: erlef/setup-beam@v1
         with:
           version-file: .tool-versions
@@ -230,9 +234,9 @@ jobs:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-mix-${{ steps.versions.outputs.elixir-version }}-${{ steps.versions.outputs.otp-version }}-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            ${{ runner.os }}-mix-
+            ${{ runner.os }}-${{ steps.versions.outputs.elixir-version }}-${{ steps.versions.outputs.otp-version }}-mix-
 
       - name: install dependencies
         run: |
