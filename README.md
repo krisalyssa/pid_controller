@@ -44,7 +44,7 @@ Don’t forget to run `mix deps.get` afterwards.
 
 ## USAGE
 
-Documentation can be found at <https://hexdocs.pm/pid_controller>.
+Documentation can be found at <https://hexdocs.pm/pid_controller> or <https://craigcottingham.github.io/pid_controller/hexdocs>.
 
 ## CONTRIBUTING
 
