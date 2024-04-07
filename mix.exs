@@ -33,7 +33,8 @@ defmodule PidController.MixProject do
   defp aliases do
     [
       credo: ["credo --strict"],
-      test: ["format", "credo --strict", "dialyzer", "espec"]
+      test: ["format", "credo --strict", "dialyzer", "espec"],
+      "test.unit": ["espec"]
     ]
   end
 
