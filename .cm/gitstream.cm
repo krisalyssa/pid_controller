@@ -1,0 +1,103 @@
+# -*- mode: yaml -*-
+# +----------------------------------------------------------------------------+
+# | WARNING: This file controls repo automations, use caution when modifying   |
+# +----------------------------------------------------------------------------+
+# | This file contains one or more /:\ gitStream automations:                  |
+# | https://docs.gitstream.cm                                                  |
+# |                                                                            |
+# | gitStream uses YAML syntax with nunjucks templating via Jinja 2.           |
+# |                                                                            |
+# | Automations follow an "if this, then that" execution format.               |
+# | More info here: https://docs.gitstream.cm/how-it-works/                    |
+# |                                                                            |
+# +----------------------------------------------------------------------------+
+
+# /:\ gitStream Reference Docs:
+#    Context Variables: https://docs.gitstream.cm/context-variables/
+#    Filter Functions: https://docs.gitstream.cm/filter-functions/
+#    Automation Actions: https://docs.gitstream.cm/automation-actions/
+
+manifest:
+  version: 1.0
+
+# List of files that should trigger a sensitive file change review.
+# sensitive:
+#   - .env.example
+
+# Files to exclude from gitStream automations.
+# config:
+#   ignore_files:
+#     - "pnpm-lock.yaml"
+
+# Set long_review_threshold to the number of minutes that should trigger extra review requirements.
+long_review_threshold: 5
+
+# +----------------------------------------------------------------------------+
+# | Automations
+# +----------------------------------------------------------------------------+
+
+automations:
+  approve_tests:
+    if:
+      # Triggered for PRs that only include changes to tests
+      - {{ files | allTests }}
+    run:
+      - action: add-label@v1
+        args:
+          label: "tests only"
+      - action: add-comment@v1
+        args:
+          comment: |
+            This merge has been automatically approved because it only contains changes to tests.
+      - action: approve@v1
+
+  label_deleted_files:
+    if:
+      - {{ has.deleted_files }}
+    run:
+      - action: add-label@v1
+        args:
+          label: "deleted-files"
+          color: {{ colors.orange }}
+
+  percent_new_code:
+    if:
+      # only if changes.ratio > some threshold?
+      - true
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            This PR is {{ changes.ratio }}% new code.
+
+# +----------------------------------------------------------------------------+
+# | Custom Expressions                                                         |
+# | https://docs.gitstream.cm/how-it-works/#custom-expressions                 |
+# +----------------------------------------------------------------------------+
+
+changes:
+  additions: {{ branch.diff.files_metadata | map(attr='additions') | sum }}
+  deletions: {{ branch.diff.files_metadata | map(attr='deletions') | sum }}
+  ratio: {{ (changes.additions / (changes.additions + changes.deletions)) * 100 | round(2) }}
+
+has:
+  deleted_files: {{ source.diff.files | map(attr='new_file') | match(term='/dev/null') | some }}
+
+# These are all of the colors in GitHub's default label color palette.
+colors:
+  red: 'b60205'
+  orange: 'd93f0b'
+  yellow: 'fbca04'
+  green: '0e8a16'
+  teal: '006b75'
+  blue: '1d76db'
+  dark-blue: '0052cc'
+  purple: '5319e7'
+  light-red: 'e99695'
+  light-orange: 'f9d0c4'
+  light-yellow: 'fef2c0'
+  light-green: 'c2e0c6'
+  light-teal: 'bfdadc'
+  light-blue: 'c5def5'
+  light-dark-blue: 'bfd4f2'
+  light-purple: 'd4c5f9'
